@@ -1,0 +1,17 @@
+{
+  "name": "dropload-component",
+  "description": "drag and drop file uploading",
+  "version": "0.0.1",
+  "keywords": ["upload", "file"],
+  "dependencies": {
+    "emitter-component": "*",
+    "classes-component": "*",
+    "upload-component": "*"
+  },
+  "devDependencies": {
+    "express": "3.0.0rc4"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}
