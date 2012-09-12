@@ -11,7 +11,9 @@
   "devDependencies": {
     "express": "3.0.0rc4"
   },
-  "scripts": [
-    "index.js"
-  ]
+  "component": {
+    "scripts": {
+      "dropload/index.js": "index.js"
+    }
+  }
 }
