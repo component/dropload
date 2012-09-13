@@ -44,29 +44,6 @@ function Dropload(el) {
 Emitter(Dropload.prototype);
 
 /**
- * Define a validation `fn`.
- *
- * Examples:
- *
- *    drop.validate(function(file, fn){
- *      var limit = 1024 * 1024;
- *      var type = file.type.split('/')[0];
- *      if ('image' != type) return fn(new Error("that's not an image :)"));
- *      if (file.size > limit) return fn(new Error('file size of 1mb exceeded'));
- *      fn();
- *    });
- *
- * @param {Function} fn
- * @return {Dropload}
- * @api public
- */
-
-Dropload.prototype.validate = function(fn){
-  this._validate = fn;
-  return this;
-};
-
-/**
  * Dragenter handler.
  */
 
@@ -105,14 +82,7 @@ Dropload.prototype.ondrop = function(e){
  */
 
 Dropload.prototype.upload = function(files){
-  var self = this;
   for (var i = 0, len = files.length; i < len; ++i) {
-    (function(file){
-      var upload = new Upload(file);
-      self._validate(file, function(err){
-        if (err) return self.emit('error', err, file);
-        self.emit('upload', upload);
-      });
-    })(files[i]);
+    this.emit('upload', new Upload(files[i]));
   }
 };

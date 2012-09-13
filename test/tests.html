@@ -23,14 +23,6 @@
       var Dropload = require('dropload');
       var drop = Dropload(document.getElementById('drop'));
 
-      drop.validate(function(file, fn){
-        var limit = 1024 * 1024;
-        var type = file.type.split('/')[0];
-        if ('image' != type) return fn(new Error("that's not an image :)"));
-        if (file.size > limit) return fn(new Error('file size of 1mb exceeded'));
-        fn();
-      });
-
       drop.on('error', function(err){
         console.error(err.message);
       });
