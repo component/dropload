@@ -34,7 +34,6 @@ function Dropload(el) {
   el.addEventListener('drop', this.ondrop.bind(this), false);
   el.addEventListener('dragenter', this.ondragenter.bind(this), false);
   el.addEventListener('dragleave', this.ondragleave.bind(this), false);
-  this.validate(function(file, fn){ fn(); });
 }
 
 /**
