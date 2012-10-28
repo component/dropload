@@ -3,7 +3,12 @@
   "repo": "component/dropload",
   "description": "drag and drop uploads",
   "version": "0.0.2",
-  "keywords": ["drag", "drop", "upload", "file"],
+  "keywords": [
+    "drag",
+    "drop",
+    "upload",
+    "file"
+  ],
   "dependencies": {
     "component/emitter": "*",
     "component/classes": "*",
@@ -12,5 +17,6 @@
   "development": {},
   "scripts": [
     "index.js"
-  ]
+  ],
+  "license": "MIT"
 }
