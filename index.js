@@ -35,7 +35,6 @@ function Dropload(el) {
   el.addEventListener('dragenter', this.ondragenter.bind(this), false);
   el.addEventListener('dragleave', this.ondragleave.bind(this), false);
   el.addEventListener('dragover', this.ondragover.bind(this), false);
-
 }
 
 /**
