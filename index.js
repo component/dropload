@@ -34,6 +34,8 @@ function Dropload(el) {
   el.addEventListener('drop', this.ondrop.bind(this), false);
   el.addEventListener('dragenter', this.ondragenter.bind(this), false);
   el.addEventListener('dragleave', this.ondragleave.bind(this), false);
+  el.addEventListener('dragover', this.ondragover.bind(this), false);
+
 }
 
 /**
@@ -48,6 +50,14 @@ Emitter(Dropload.prototype);
 
 Dropload.prototype.ondragenter = function(e){
   this.classes.add('over');
+};
+
+/**
+ * Dragover handler.
+ */
+
+Dropload.prototype.ondragover = function(e){
+  e.preventDefault();
 };
 
 /**
