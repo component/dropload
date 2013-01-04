@@ -1,11 +1,10 @@
-
 # upload
 
   file upload and progress api
 
 ## Installation
 
-    $ component install component/upload
+    $ component install component/dropload
 
 ## Events
 
