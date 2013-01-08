@@ -52,7 +52,6 @@ Emitter(Dropload.prototype);
  */
 
 Dropload.prototype.unbind = function(){
-  console.log(this.events);
   this.events.unbind();
 };
 
