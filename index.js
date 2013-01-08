@@ -5,7 +5,8 @@
 
 var Emitter = require('emitter')
   , classes = require('classes')
-  , Upload = require('upload');
+  , Upload = require('upload')
+  , events = require('events')
 
 /**
  * Expose `Dropload`.
@@ -31,10 +32,11 @@ function Dropload(el) {
   Emitter.call(this);
   this.el = el;
   this.classes = classes(el);
-  el.addEventListener('drop', this.ondrop.bind(this), false);
-  el.addEventListener('dragenter', this.ondragenter.bind(this), false);
-  el.addEventListener('dragleave', this.ondragleave.bind(this), false);
-  el.addEventListener('dragover', this.ondragover.bind(this), false);
+  this.events = events(el, this);
+  this.events.bind('drop');
+  this.events.bind('dragenter');
+  this.events.bind('dragleave');
+  this.events.bind('dragover');
 }
 
 /**
@@ -42,6 +44,17 @@ function Dropload(el) {
  */
 
 Emitter(Dropload.prototype);
+
+/**
+ * Unbind event handlers.
+ *
+ * @api public
+ */
+
+Dropload.prototype.unbind = function(){
+  console.log(this.events);
+  this.events.unbind();
+};
 
 /**
  * Dragenter handler.
