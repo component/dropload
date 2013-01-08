@@ -12,7 +12,8 @@
   "dependencies": {
     "component/emitter": "*",
     "component/classes": "*",
-    "component/upload": "*"
+    "component/upload": "*",
+    "component/events": "*"
   },
   "development": {},
   "scripts": [

@@ -16,6 +16,7 @@ app.get('/', function(req, res){
 
 app.post('/upload', function(req, res){
   var file = req.files.file;
+  console.log('uploaded %s', file.name);
   if (file) return res.send(200);
   res.send(400);
 });
@@ -23,5 +24,5 @@ app.post('/upload', function(req, res){
 app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/..'));
 
-app.listen(3000);
-console.log('listening on port 3000');
+app.listen(4000);
+console.log('listening on port 4000');
