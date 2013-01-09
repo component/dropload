@@ -6,7 +6,8 @@
   "dependencies": {
     "emitter-component": "*",
     "classes-component": "*",
-    "upload-component": "*"
+    "upload-component": "*",
+    "events": "component/events"
   },
   "devDependencies": {
     "express": "3.0.0rc4"
