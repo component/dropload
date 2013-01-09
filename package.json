@@ -1,7 +1,7 @@
 {
   "name": "dropload-component",
   "description": "drag and drop file uploading",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "keywords": ["upload", "file"],
   "dependencies": {
     "emitter-component": "*",
