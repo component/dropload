@@ -15,6 +15,16 @@ var Emitter = require('emitter')
 module.exports = Dropload;
 
 /**
+ * Types.
+ */
+
+var typeMap = {
+  'text/plain': 'text',
+  'text/uri-list': 'url',
+  'text/html': 'html'
+};
+
+/**
  * Initialize a drop point
  * on the given `el`.
  *
@@ -87,7 +97,36 @@ Dropload.prototype.ondrop = function(e){
   e.stopPropagation();
   e.preventDefault();
   this.classes.remove('over');
+  this.drop(e.dataTransfer.items);
   this.upload(e.dataTransfer.files);
+};
+
+/**
+ * Handle the given `items`.
+ *
+ * @param {DataTransferItemList}
+ * @api private
+ */
+
+Dropload.prototype.drop = function(items){
+  for (var i = 0; i < items.length; i++) {
+    this.dropItem(items[i]);
+  }
+};
+
+/**
+ * Handle `item`.
+ *
+ * @param {Object} item
+ * @api private
+ */
+
+Dropload.prototype.dropItem = function(item){
+  var self = this;
+  var type = typeMap[item.type];
+  item.getAsString(function(str){
+    self.emit(type, str, item);
+  });
 };
 
 /**
@@ -102,7 +141,7 @@ Dropload.prototype.ondrop = function(e){
  */
 
 Dropload.prototype.upload = function(files){
-  for (var i = 0, len = files.length; i < len; ++i) {
+  for (var i = 0; i < files.length; i++) {
     this.emit('upload', new Upload(files[i]));
   }
 };

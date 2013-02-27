@@ -9,6 +9,9 @@
 ## Events
 
   - `upload` (upload) a file was dropped
+  - `text` (string) string representation
+  - `url` (string) url representation
+  - `html` (string) html representation
 
 ## Example
 
@@ -23,6 +26,18 @@ drop.on('error', function(err){
 drop.on('upload', function(upload){
   console.log('uploading %s', upload.file.name);
   upload.to('/upload');
+});
+
+drop.on('text', function(str){
+  console.log('text "%s"', str);
+});
+
+drop.on('url', function(str){
+  console.log('url "%s"', str);
+});
+
+drop.on('html', function(str){
+  console.log('html "%s"', str);
 });
 ```
 
