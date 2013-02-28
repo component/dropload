@@ -97,7 +97,8 @@ Dropload.prototype.ondrop = function(e){
   e.stopPropagation();
   e.preventDefault();
   this.classes.remove('over');
-  this.drop(e.dataTransfer.items);
+  var items = e.dataTransfer.items;
+  if (items) this.drop(items);
   this.upload(e.dataTransfer.files);
 };
 
