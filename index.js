@@ -111,7 +111,41 @@ Dropload.prototype.ondrop = function(e){
 
 Dropload.prototype.drop = function(items){
   for (var i = 0; i < items.length; i++) {
-    this.dropItem(items[i]);
+    var item = items[i];
+    if (item.webkitGetAsEntry) {
+      this.walkEntry(item.webkitGetAsEntry());
+    } else {
+      this.dropItem(item);
+    }
+  }
+};
+
+/**
+ * Walk file entry recursively.
+ *
+ * @param {FileEntry} item
+ * @api private
+ */
+
+Dropload.prototype.walkEntry = function(item){
+  var self = this;
+
+  if (item.isFile) {
+    return item.file(function(file){
+      file.entry = item;
+      self.upload([file]);
+    });
+  }
+
+  if (item.isDirectory) {
+    var dir = item.createReader();
+    dir.readEntries(function(entries){
+      for (var i = 0; i < entries.length; i++) {
+        var name = entries[i].name;
+        if ('.' == name[0]) continue;
+        self.walkEntry(entries[i]);
+      }
+    })
   }
 };
 
