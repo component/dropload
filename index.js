@@ -47,6 +47,7 @@ function Dropload(el) {
   this.events.bind('dragenter');
   this.events.bind('dragleave');
   this.events.bind('dragover');
+  this.ignored = {};
 }
 
 /**
@@ -54,6 +55,29 @@ function Dropload(el) {
  */
 
 Emitter(Dropload.prototype);
+
+/**
+ * Ignore `name`.
+ *
+ * @param {String} name
+ * @api private
+ */
+
+Dropload.prototype.ignore = function(name){
+  this.ignored[name] = true;
+};
+
+/**
+ * Check if `name` is ignored.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api private
+ */
+
+Dropload.prototype.ignoring = function(name){
+  return !! this.ignored[name];
+};
 
 /**
  * Unbind event handlers.
@@ -115,9 +139,10 @@ Dropload.prototype.directories = function(items){
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
     if (!item.webkitGetAsEntry) continue;
-    item = item.webkitGetAsEntry();
-    if (item.isDirectory) {
-      this.walkEntry(item);
+    var entry = item.webkitGetAsEntry();
+    if (entry.isDirectory) {
+      this.ignore(entry.name);
+      this.walkEntry(entry);
     }
   }
 };
@@ -131,7 +156,8 @@ Dropload.prototype.directories = function(items){
 
 Dropload.prototype.items = function(items){
   for (var i = 0; i < items.length; i++) {
-    this.item(items[i]);
+    var item = items[i];
+    this.item(item);
   }
 };
 
@@ -192,6 +218,8 @@ Dropload.prototype.item = function(item){
 
 Dropload.prototype.upload = function(files){
   for (var i = 0; i < files.length; i++) {
-    this.emit('upload', new Upload(files[i]));
+    var file = files[i];
+    if (this.ignoring(file.name)) continue;
+    this.emit('upload', new Upload(file));
   }
 };
