@@ -98,8 +98,9 @@ Dropload.prototype.ondrop = function(e){
   e.preventDefault();
   this.classes.remove('over');
   var items = e.dataTransfer.items;
+  var files = e.dataTransfer.files;
   if (items) this.drop(items);
-  this.upload(e.dataTransfer.files);
+  if (files) this.upload(files);
 };
 
 /**
