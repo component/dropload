@@ -99,7 +99,7 @@ Dropload.prototype.ondrop = function(e){
   this.classes.remove('over');
   var items = e.dataTransfer.items;
   var files = e.dataTransfer.files;
-  if (items) this.drop(items);
+  if (items) this.items(items);
   if (files) this.upload(files);
 };
 
@@ -110,13 +110,13 @@ Dropload.prototype.ondrop = function(e){
  * @api private
  */
 
-Dropload.prototype.drop = function(items){
+Dropload.prototype.items = function(items){
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
     if (item.webkitGetAsEntry) {
       this.walkEntry(item.webkitGetAsEntry());
     } else {
-      this.dropItem(item);
+      this.item(item);
     }
   }
 };
@@ -157,7 +157,7 @@ Dropload.prototype.walkEntry = function(item){
  * @api private
  */
 
-Dropload.prototype.dropItem = function(item){
+Dropload.prototype.item = function(item){
   var self = this;
   var type = typeMap[item.type];
   item.getAsString(function(str){
