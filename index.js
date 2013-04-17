@@ -126,6 +126,7 @@ Dropload.prototype.ondrop = function(e){
   if (items) this.directories(items);
   if (items) this.items(items);
   if (files) this.upload(files);
+  this.ignored = {};
 };
 
 /**
