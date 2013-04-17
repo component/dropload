@@ -99,8 +99,27 @@ Dropload.prototype.ondrop = function(e){
   this.classes.remove('over');
   var items = e.dataTransfer.items;
   var files = e.dataTransfer.files;
+  if (items) this.directories(items);
   if (items) this.items(items);
   if (files) this.upload(files);
+};
+
+/**
+ * Walk directories and upload files.
+ *
+ * @param {DataTransferItemList} items
+ * @api private
+ */
+
+Dropload.prototype.directories = function(items){
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    if (!item.webkitGetAsEntry) continue;
+    item = item.webkitGetAsEntry();
+    if (item.isDirectory) {
+      this.walkEntry(item);
+    }
+  }
 };
 
 /**
@@ -112,12 +131,7 @@ Dropload.prototype.ondrop = function(e){
 
 Dropload.prototype.items = function(items){
   for (var i = 0; i < items.length; i++) {
-    var item = items[i];
-    if (item.webkitGetAsEntry) {
-      this.walkEntry(item.webkitGetAsEntry());
-    } else {
-      this.item(item);
-    }
+    this.item(items[i]);
   }
 };
 
