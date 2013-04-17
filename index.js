@@ -131,6 +131,10 @@ Dropload.prototype.ondrop = function(e){
 /**
  * Walk directories and upload files.
  *
+ * Directories are considered "files",
+ * non-files return null for .webkitGetAsEntry()
+ * for example when dragging urls.
+ *
  * @param {DataTransferItemList} items
  * @api private
  */
@@ -138,8 +142,12 @@ Dropload.prototype.ondrop = function(e){
 Dropload.prototype.directories = function(items){
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
+
+    if ('file' != item.kind) continue;
+
     if (!item.webkitGetAsEntry) continue;
     var entry = item.webkitGetAsEntry();
+
     if (entry.isDirectory) {
       this.ignore(entry.name);
       this.walkEntry(entry);
