@@ -12,6 +12,7 @@
   - `text` (string) string representation
   - `url` (string) url representation
   - `html` (string) html representation
+  - `drop` (event) a drop was performed
 
 ## Example
 

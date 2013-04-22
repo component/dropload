@@ -28,11 +28,6 @@ var typeMap = {
  * Initialize a drop point
  * on the given `el`.
  *
- * Emits:
- *
- *   - `error` on validation error
- *   - `upload` passing an `Upload`
- *
  * @param {Element} el
  * @api public
  */
@@ -123,6 +118,7 @@ Dropload.prototype.ondrop = function(e){
   this.classes.remove('over');
   var items = e.dataTransfer.items;
   var files = e.dataTransfer.files;
+  this.emit('drop', e);
   if (items) this.directories(items);
   if (items) this.items(items);
   if (files) this.upload(files);
