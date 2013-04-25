@@ -1,6 +1,6 @@
-# upload
+# Dropload
 
-  file upload and progress api
+  Drag and drop upload component.
 
 ## Installation
 
