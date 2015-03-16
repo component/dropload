@@ -1,4 +1,13 @@
 
+0.3.0 / 2015-03-16
+==================
+
+  * package: add "repository" field
+  * package: rename to "component-dropload"
+  * package: fix browserify build
+  * fix docs
+  * add "drop" (e) event
+
 0.2.1 / 2013-04-17
 ==================
 
