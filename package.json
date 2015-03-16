@@ -1,5 +1,5 @@
 {
-  "name": "dropload-component",
+  "name": "component-dropload",
   "description": "drag and drop file uploading",
   "version": "0.2.1",
   "keywords": ["upload", "file"],
