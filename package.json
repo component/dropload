@@ -4,10 +4,16 @@
   "version": "0.2.1",
   "keywords": ["upload", "file"],
   "dependencies": {
-    "emitter-component": "*",
-    "classes-component": "*",
-    "upload-component": "*",
-    "events-component-2": "*"
+    "component-emitter": "*",
+    "component-classes": "*",
+    "component-upload": "*",
+    "component-events": "*"
+  },
+  "browser": {
+    "emitter": "component-emitter",
+    "classes": "component-classes",
+    "upload": "component-upload",
+    "events": "component-events"
   },
   "devDependencies": {
     "express": "3.0.0rc4"
