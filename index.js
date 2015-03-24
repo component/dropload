@@ -26,22 +26,20 @@ var typeMap = {
 
 /**
  * Initialize a drop point
- * on the given `el`.
+ * on the given `el`. Optionally use `selector`
+ * for delegated events.
  *
  * @param {Element} el
+ * @param {String} selector
  * @api public
  */
 
-function Dropload(el) {
+function Dropload(el,selector) {
   if (!(this instanceof Dropload)) return new Dropload(el);
   Emitter.call(this);
   this.el = el;
-  this.classes = classes(el);
+  this.selector = selector || '';
   this.events = events(el, this);
-  this.events.bind('drop');
-  this.events.bind('dragenter');
-  this.events.bind('dragleave');
-  this.events.bind('dragover');
   this.ignored = {};
 }
 
@@ -75,6 +73,25 @@ Dropload.prototype.ignoring = function(name){
 };
 
 /**
+ * Bind event handlers. Optionally use `selector`
+ * to update the selector for delegated events.
+ *
+ * @param {String} selector
+ * 
+ * @api public
+ */
+
+Dropload.prototype.bind = function(selector){
+  if( 'undefined' != typeof selector  ){
+    this.selector = selector;
+  }
+  this.events.bind('drop '+this.selector);
+  this.events.bind('dragenter '+this.selector);
+  this.events.bind('dragleave '+this.selector);
+  this.events.bind('dragover '+this.selector);
+}
+
+/**
  * Unbind event handlers.
  *
  * @api public
@@ -89,7 +106,8 @@ Dropload.prototype.unbind = function(){
  */
 
 Dropload.prototype.ondragenter = function(e){
-  this.classes.add('over');
+  console.log('drag enter',e);
+  classes(e.delegateTarget).add('over');
 };
 
 /**
@@ -105,7 +123,7 @@ Dropload.prototype.ondragover = function(e){
  */
 
 Dropload.prototype.ondragleave = function(e){
-  this.classes.remove('over');
+  classes(e.delegateTarget).remove('over');
 };
 
 /**
@@ -115,7 +133,7 @@ Dropload.prototype.ondragleave = function(e){
 Dropload.prototype.ondrop = function(e){
   e.stopPropagation();
   e.preventDefault();
-  this.classes.remove('over');
+  classes(e.delegateTarget).remove('over');
   var items = e.dataTransfer.items;
   var files = e.dataTransfer.files;
   this.emit('drop', e);
